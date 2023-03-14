@@ -6,5 +6,8 @@
     "emitDeclarationOnly": true,
     "isolatedModules": true,
     "declarationDir": "./dist"
+  },
+  "vueCompilerOptions": {
+    "target": 2.7
   }
 }

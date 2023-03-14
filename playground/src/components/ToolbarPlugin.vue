@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CommandListenerPriority, RangeSelection } from "lexical";
+import type { CommandListenerPriority, RangeSelection } from 'lexical';
 import {
   $getNodeByKey,
   $getSelection,
@@ -11,48 +11,48 @@ import {
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
-} from "lexical";
-import { $isParentElementRTL } from "@lexical/selection";
-import { $getNearestNodeOfType, mergeRegister } from "@lexical/utils";
-import { useEditor } from "@wattanx/lexical-vue";
-import { onMounted, onUnmounted, ref, watch } from "vue";
-import { $isListNode, ListNode } from "@lexical/list";
-import { $isHeadingNode } from "@lexical/rich-text";
+} from 'lexical';
+import { $isParentElementRTL } from '@lexical/selection';
+import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils';
+import { useEditor } from '@wattanx/lexical-vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { $isListNode, ListNode } from '@lexical/list';
+import { $isHeadingNode } from '@lexical/rich-text';
 import {
   $isCodeNode,
   getCodeLanguages,
   getDefaultCodeLanguage,
-} from "@lexical/code";
-import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
-import { getSelectedNode } from "../utils";
-import BlockOptionsDropdownList from "./BlockOptionsDropdownList.vue";
-import CodeLanguageSelect from "./CodeLanguageSelect.vue";
-import FloatingLinkEditor from "./FloatingLinkEditor.vue";
-import Divider from "./Divider";
+} from '@lexical/code';
+import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
+import { getSelectedNode } from '../utils';
+import BlockOptionsDropdownList from './BlockOptionsDropdownList.vue';
+import CodeLanguageSelect from './CodeLanguageSelect.vue';
+import FloatingLinkEditor from './FloatingLinkEditor.vue';
+import Divider from './Divider';
 
 const LowPriority: CommandListenerPriority = 1;
 
 const supportedBlockTypes = new Set([
-  "paragraph",
-  "quote",
-  "code",
-  "h1",
-  "h2",
-  "ul",
-  "ol",
+  'paragraph',
+  'quote',
+  'code',
+  'h1',
+  'h2',
+  'ul',
+  'ol',
 ]);
 
 const blockTypeToBlockName: Record<string, string> = {
-  code: "Code Block",
-  h1: "Large Heading",
-  h2: "Small Heading",
-  h3: "Heading",
-  h4: "Heading",
-  h5: "Heading",
-  ol: "Numbered List",
-  paragraph: "Normal",
-  quote: "Quote",
-  ul: "Bulleted List",
+  code: 'Code Block',
+  h1: 'Large Heading',
+  h2: 'Small Heading',
+  h3: 'Heading',
+  h4: 'Heading',
+  h5: 'Heading',
+  ol: 'Numbered List',
+  paragraph: 'Normal',
+  quote: 'Quote',
+  ul: 'Bulleted List',
 };
 
 const toolbarRef = ref<HTMLDivElement | null>(null);
@@ -60,9 +60,9 @@ const editor = useEditor();
 
 const canUndo = ref(false);
 const canRedo = ref(false);
-const blockType = ref("paragraph");
+const blockType = ref('paragraph');
 const selectedElementKey = ref();
-const codeLanguage = ref("");
+const codeLanguage = ref('');
 const isRTL = ref(false);
 const isLink = ref(false);
 const isBold = ref(false);
@@ -77,7 +77,7 @@ const updateToolbar = () => {
   if ($isRangeSelection(selection)) {
     const anchorNode = selection.anchor.getNode();
     const element =
-      anchorNode.getKey() === "root"
+      anchorNode.getKey() === 'root'
         ? anchorNode
         : anchorNode.getTopLevelElementOrThrow();
     const elementKey = element.getKey();
@@ -103,11 +103,11 @@ const updateToolbar = () => {
       }
     }
     // Update text format
-    isBold.value = selection.hasFormat("bold");
-    isItalic.value = selection.hasFormat("italic");
-    isUnderline.value = selection.hasFormat("underline");
-    isStrikethrough.value = selection.hasFormat("strikethrough");
-    isCode.value = selection.hasFormat("code");
+    isBold.value = selection.hasFormat('bold');
+    isItalic.value = selection.hasFormat('italic');
+    isUnderline.value = selection.hasFormat('underline');
+    isStrikethrough.value = selection.hasFormat('strikethrough');
+    isCode.value = selection.hasFormat('code');
     isRTL.value = $isParentElementRTL(selection);
 
     // Update links
@@ -157,7 +157,7 @@ onMounted(() => {
 const codeLanguages = getCodeLanguages() as string[];
 
 const insertLink = () => {
-  if (!isLink.value) editor.dispatchCommand(TOGGLE_LINK_COMMAND, "https://");
+  if (!isLink.value) editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://');
   else editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
 };
 
@@ -216,8 +216,8 @@ onUnmounted(() => {
     <Divider />
     <template v-if="blockType === 'code'">
       <CodeLanguageSelect
-        v-model="codeLanguage"
         :code-languages="codeLanguages"
+        :value="codeLanguage"
       />
     </template>
     <template v-else>

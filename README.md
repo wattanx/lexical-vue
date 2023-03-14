@@ -2,13 +2,13 @@
 
 Forked from [`lexical-vue`](https://github.com/wobsoriano/lexical-vue)
 
-An extensible Vue 3 web text-editor based on [Lexical](https://github.com/facebook/lexical).
+An extensible Vue 2 web text-editor based on [Lexical](https://github.com/facebook/lexical).
 
 For documentation and more information about Lexical, be sure to visit the [Lexical website](https://lexical.dev/).
 
 ## Getting started with Vue
 
-> Requires Vue >= 3.2.0.
+> Requires Vue 2.7 (`>=3.0`, use `lexical-vue.` )
 
 Install `lexical` and `lexical-vue`:
 
@@ -20,8 +20,8 @@ Below is an example of a basic plain text editor using `lexical` and `lexical-vu
 
 ```vue
 <script setup lang="ts">
-import { $getRoot, $getSelection } from "lexical";
-import { ref } from "vue";
+import { $getRoot, $getSelection } from 'lexical';
+import { ref } from 'vue';
 
 import {
   LexicalAutoFocusPlugin,
@@ -30,7 +30,7 @@ import {
   LexicalHistoryPlugin,
   LexicalOnChangePlugin,
   LexicalPlainTextPlugin,
-} from "lexical-vue";
+} from 'lexical-vue';
 
 const config = {
   theme: {
@@ -55,7 +55,7 @@ function onChange(editorState) {
 }
 
 // Two-way binding
-const content = ref("");
+const content = ref('');
 </script>
 
 <template>
