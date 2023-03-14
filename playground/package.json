@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "lexical": "0.7.5",
-    "lexical-vue": "workspace:*",
+    "@wattanx/lexical-vue": "workspace:*",
     "vue": "^3.2.45"
   },
   "devDependencies": {
