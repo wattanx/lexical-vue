@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LexicalTreeViewPlugin } from 'lexical-vue'
+import { LexicalTreeViewPlugin } from "@wattanx/lexical-vue";
 </script>
 
 <template>

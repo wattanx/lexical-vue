@@ -1,145 +1,138 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
-import { useEditor } from 'lexical-vue'
-import type {
-  RangeSelection,
-} from 'lexical'
+import { onMounted, onUnmounted, ref } from "vue";
+import { useEditor } from "@wattanx/lexical-vue";
+import type { RangeSelection } from "lexical";
 import {
   $createParagraphNode,
   $getSelection,
   $isRangeSelection,
-} from 'lexical'
+} from "lexical";
 import {
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
   REMOVE_LIST_COMMAND,
-} from '@lexical/list'
-import {
-  $wrapNodes,
-} from '@lexical/selection'
-import {
-  $createHeadingNode,
-  $createQuoteNode,
-} from '@lexical/rich-text'
-import {
-  $createCodeNode,
-} from '@lexical/code'
+} from "@lexical/list";
+import { $wrapNodes } from "@lexical/selection";
+import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
+import { $createCodeNode } from "@lexical/code";
 
-const props = withDefaults(defineProps<{
-  toolbarRef: HTMLDivElement | null
-  blockType?: string
-}>(), {
-  blockType: 'paragraph',
-})
+const props = withDefaults(
+  defineProps<{
+    toolbarRef: HTMLDivElement | null;
+    blockType?: string;
+  }>(),
+  {
+    blockType: "paragraph",
+  }
+);
 const emit = defineEmits<{
-  (e: 'update:showBlockOptionsDropDown', value: boolean): void
-}>()
-const dropDownRef = ref<HTMLDivElement | null>(null)
-const editor = useEditor()
+  (e: "update:showBlockOptionsDropDown", value: boolean): void;
+}>();
+const dropDownRef = ref<HTMLDivElement | null>(null);
+const editor = useEditor();
 
 onMounted(() => {
   if (props.toolbarRef && dropDownRef.value) {
-    const { top, left } = props.toolbarRef.getBoundingClientRect()
-    dropDownRef.value.style.top = `${top + 40}px`
-    dropDownRef.value.style.left = `${left}px`
+    const { top, left } = props.toolbarRef.getBoundingClientRect();
+    dropDownRef.value.style.top = `${top + 40}px`;
+    dropDownRef.value.style.left = `${left}px`;
   }
-})
+});
 
 const handle = (event: Event) => {
-  const target = event.target as Node
+  const target = event.target as Node;
 
-  if (!dropDownRef.value?.contains(target) && !props.toolbarRef?.contains(target))
-    emit('update:showBlockOptionsDropDown', false)
-}
+  if (
+    !dropDownRef.value?.contains(target) &&
+    !props.toolbarRef?.contains(target)
+  )
+    emit("update:showBlockOptionsDropDown", false);
+};
 
 onMounted(() => {
   if (props.toolbarRef && dropDownRef.value)
-    document.addEventListener('click', handle)
-})
+    document.addEventListener("click", handle);
+});
 
 onUnmounted(() => {
-  document.removeEventListener('click', handle)
-})
+  document.removeEventListener("click", handle);
+});
 
 const formatParagraph = () => {
-  if (props.blockType !== 'paragraph') {
+  if (props.blockType !== "paragraph") {
     editor.update(() => {
-      const selection = $getSelection() as RangeSelection
+      const selection = $getSelection() as RangeSelection;
 
       if ($isRangeSelection(selection))
-        $wrapNodes(selection, () => $createParagraphNode())
-    })
+        $wrapNodes(selection, () => $createParagraphNode());
+    });
   }
-  emit('update:showBlockOptionsDropDown', false)
-}
+  emit("update:showBlockOptionsDropDown", false);
+};
 
 const formatLargeHeading = () => {
-  if (props.blockType !== 'h1') {
+  if (props.blockType !== "h1") {
     editor.update(() => {
-      const selection = $getSelection()
+      const selection = $getSelection();
 
       if ($isRangeSelection(selection))
-        $wrapNodes(selection, () => $createHeadingNode('h1'))
-    })
+        $wrapNodes(selection, () => $createHeadingNode("h1"));
+    });
   }
-  emit('update:showBlockOptionsDropDown', false)
-}
+  emit("update:showBlockOptionsDropDown", false);
+};
 
 const formatSmallHeading = () => {
-  if (props.blockType !== 'h2') {
+  if (props.blockType !== "h2") {
     editor.update(() => {
-      const selection = $getSelection()
+      const selection = $getSelection();
 
       if ($isRangeSelection(selection))
-        $wrapNodes(selection, () => $createHeadingNode('h2'))
-    })
+        $wrapNodes(selection, () => $createHeadingNode("h2"));
+    });
   }
-  emit('update:showBlockOptionsDropDown', false)
-}
+  emit("update:showBlockOptionsDropDown", false);
+};
 
 const formatBulletList = () => {
-  if (props.blockType !== 'ul')
-    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)
+  if (props.blockType !== "ul")
+    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+  else editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
 
-  else
-    editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
-
-  emit('update:showBlockOptionsDropDown', false)
-}
+  emit("update:showBlockOptionsDropDown", false);
+};
 
 const formatNumberedList = () => {
-  if (props.blockType !== 'ol')
-    editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)
+  if (props.blockType !== "ol")
+    editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+  else editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
 
-  else
-    editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
-
-  emit('update:showBlockOptionsDropDown', false)
-}
+  emit("update:showBlockOptionsDropDown", false);
+};
 
 const formatQuote = () => {
-  if (props.blockType !== 'quote') {
+  if (props.blockType !== "quote") {
     editor.update(() => {
-      const selection = $getSelection()
+      const selection = $getSelection();
 
       if ($isRangeSelection(selection))
-        $wrapNodes(selection, () => $createQuoteNode())
-    })
+        $wrapNodes(selection, () => $createQuoteNode());
+    });
   }
-  emit('update:showBlockOptionsDropDown', false)
-}
+  emit("update:showBlockOptionsDropDown", false);
+};
 
 const formatCode = () => {
-  if (props.blockType !== 'code') {
+  if (props.blockType !== "code") {
     editor.update(() => {
-      const selection = $getSelection()
+      const selection = $getSelection();
 
       if ($isRangeSelection(selection))
-        $wrapNodes(selection, () => $createCodeNode())
-    })
+        $wrapNodes(selection, () => $createCodeNode());
+    });
   }
-  emit('update:showBlockOptionsDropDown', false)
-}
+  emit("update:showBlockOptionsDropDown", false);
+};
 </script>
 
 <template>
