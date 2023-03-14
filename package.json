@@ -1,17 +1,17 @@
 {
-  "name": "lexical-vue",
+  "name": "@wattanx/lexical-vue",
   "type": "module",
-  "version": "0.3.17",
-  "description": "An extensible Vue 3 web text-editor based on Lexical.",
-  "author": "Robert Soriano <sorianorobertc@gmail.com>",
+  "version": "0.0.1",
+  "description": "An extensible Vue web text-editor based on Lexical.",
+  "author": "wattanx",
   "license": "MIT",
-  "homepage": "https://github.com/wobsoriano/lexical-vue#readme",
+  "homepage": "https://github.com/wattanx/lexical-vue#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wobsoriano/lexical-vue.git"
+    "url": "git+https://github.com/wattanx/lexical-vue.git"
   },
   "bugs": {
-    "url": "https://github.com/wobsoriano/lexical-vue/issues"
+    "url": "https://github.com/wattanx/lexical-vue/issues"
   },
   "keywords": [
     "vue",
