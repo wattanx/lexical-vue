@@ -46,7 +46,7 @@
   },
   "peerDependencies": {
     "lexical": "^0.7.5",
-    "vue": "^3.2.0"
+    "vue": "2.7.14"
   },
   "dependencies": {
     "@lexical/clipboard": "^0.7.5",
