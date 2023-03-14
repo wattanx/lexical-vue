@@ -1,10 +1,10 @@
 # Lexical Vue
 
+Forked from [`lexical-vue`](https://github.com/wobsoriano/lexical-vue)
+
 An extensible Vue 3 web text-editor based on [Lexical](https://github.com/facebook/lexical).
 
 For documentation and more information about Lexical, be sure to visit the [Lexical website](https://lexical.dev/).
-
-Demo: https://lexical-vue-playground.vercel.app
 
 ## Getting started with Vue
 
@@ -20,8 +20,8 @@ Below is an example of a basic plain text editor using `lexical` and `lexical-vu
 
 ```vue
 <script setup lang="ts">
-import { $getRoot, $getSelection } from 'lexical'
-import { ref } from 'vue'
+import { $getRoot, $getSelection } from "lexical";
+import { ref } from "vue";
 
 import {
   LexicalAutoFocusPlugin,
@@ -30,32 +30,32 @@ import {
   LexicalHistoryPlugin,
   LexicalOnChangePlugin,
   LexicalPlainTextPlugin,
-} from 'lexical-vue'
+} from "lexical-vue";
 
 const config = {
   theme: {
     // Theme styling goes here
   },
-}
+};
 
 const onError = (error) => {
-  throw error
-},
+  throw error;
+};
 
 // When the editor changes, you can get notified via the
 // LexicalOnChangePlugin!
 function onChange(editorState) {
   editorState.read(() => {
     // Read the contents of the EditorState here.
-    const root = $getRoot()
-    const selection = $getSelection()
+    const root = $getRoot();
+    const selection = $getSelection();
 
-    console.log(root, selection)
-  })
+    console.log(root, selection);
+  });
 }
 
 // Two-way binding
-const content = ref('')
+const content = ref("");
 </script>
 
 <template>
@@ -65,9 +65,7 @@ const content = ref('')
         <LexicalContentEditable />
       </template>
       <template #placeholder>
-        <div>
-          Enter some text...
-        </div>
+        <div>Enter some text...</div>
       </template>
     </LexicalPlainTextPlugin>
     <LexicalOnChangePlugin v-model="content" @change="onChange" />
@@ -94,10 +92,6 @@ For a more complex example, check the [rich text editor playground](https://gith
    - `git push origin my-new-branch`
 4. Go to the repository page in GitHub and click on "Compare & pull request"
    - The [GitHub CLI](https://cli.github.com/manual/gh_pr_create) allows you to skip the web interface for this step (and much more)
-
-## Documentation
-
-https://lexical-vue.vercel.app
 
 ## Credits
 
