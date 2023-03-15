@@ -1,8 +1,8 @@
 {
   "name": "@wattanx/lexical-vue",
   "type": "module",
-  "version": "0.0.1",
-  "description": "An extensible Vue web text-editor based on Lexical.",
+  "version": "1.0.0",
+  "description": "An extensible Vue 3 web text-editor based on Lexical.",
   "author": "wattanx",
   "license": "MIT",
   "homepage": "https://github.com/wattanx/lexical-vue#readme",
