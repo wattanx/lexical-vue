@@ -204,14 +204,14 @@ onUnmounted(() => {
         <span class="text">{{ blockTypeToBlockName[blockType] }}</span>
         <i class="chevron-down" />
       </button>
-      <Teleport to="body">
+      <portal to="body">
         <BlockOptionsDropdownList
           v-if="showBlockOptionsDropDown"
           v-model:showBlockOptionsDropDown="showBlockOptionsDropDown"
           :block-type="blockType"
           :toolbar-ref="toolbarRef"
         />
-      </Teleport>
+      </portal>
     </template>
     <Divider />
     <template v-if="blockType === 'code'">
@@ -263,9 +263,9 @@ onUnmounted(() => {
       >
         <i class="format link" />
       </button>
-      <Teleport to="body">
+      <portal to="body">
         <FloatingLinkEditor v-if="isLink" :priority="LowPriority" />
-      </Teleport>
+      </portal>
       <Divider />
       <button
         class="toolbar-item spaced"

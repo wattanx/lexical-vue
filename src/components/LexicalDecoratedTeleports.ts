@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, h } from 'vue'
 import { useDecorators, useEditor } from '../composables'
 
 export default defineComponent({
@@ -7,6 +7,6 @@ export default defineComponent({
     const editor = useEditor()
     const decorators = useDecorators(editor)
 
-    return () => decorators.value
+    return () => h('div', decorators.value)
   },
 })
